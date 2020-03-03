@@ -1,6 +1,5 @@
 package com.accenture.weatherlogger.bases
 
-import android.content.Context
 import com.accenture.weatherlogger.Constants
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

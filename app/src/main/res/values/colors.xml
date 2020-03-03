@@ -9,11 +9,17 @@
 
     <!--white-->
     <color name="white">#ffffff</color>
+    <color name="white_40">#66ffffff</color>
+
     <color name="white_65">#1Affffff</color>
     <color name="off_white">#efeff4</color>
 
     <!--Black-->
     <color name="black">#000000</color>
     <color name="black_45">#73000000</color>
+
+    <!--Gray-->
+    <color name="off_gray">#b0b0b0</color>
+
 
 </resources>

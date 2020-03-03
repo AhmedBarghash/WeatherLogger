@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.accenture.weatherlogger.R
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -13,6 +14,7 @@ open class BaseActivity : AppCompatActivity() {
             403 -> {}
             405 -> {}
             404 -> {}
+            101 -> {showMessage(applicationContext.resources.getString(R.string.duplicate_data_message))}
             else -> {
 
             }
@@ -21,12 +23,5 @@ open class BaseActivity : AppCompatActivity() {
 
     fun showMessage(message: String) {
         Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
-    }
-
-    protected open fun isNetworkAvailable(): Boolean {
-        val connectivityManager =
-            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetworkInfo = connectivityManager.activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 }

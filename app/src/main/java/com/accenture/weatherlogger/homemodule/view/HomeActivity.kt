@@ -97,7 +97,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     override fun showAddingWeatherDataView() {
-        showMessage(applicationContext.resources.getString(R.string.no_data_toshow))
+        showMessage(applicationContext.resources.getString(R.string.no_data_to_show))
         cl_no_recordView.visibility = View.VISIBLE
         rv_recorded_weather_list.visibility = View.GONE
         add_new_record.visibility = View.GONE

@@ -1,16 +1,31 @@
 package com.accenture.weatherlogger.currentweatherdetailsmodule
 
 import android.os.Bundle
-import com.accenture.weatherlogger.R
+import com.accenture.weatherlogger.*
 import com.accenture.weatherlogger.bases.BaseActivity
-import com.accenture.weatherlogger.homemodule.datalayer.database.dao.RecordedWeatherDao
+import com.accenture.weatherlogger.homemodule.datalayer.database.dto.RecordedWeatherDto
+import kotlinx.android.synthetic.main.activity_current_weather_details.*
 
 class CurrentWeatherDetailsActivity : BaseActivity() {
 
-    private lateinit var recordedWeather: RecordedWeatherDao
+    private lateinit var recordedWeather: RecordedWeatherDto
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_current_weather_details)
-        val recordedWeather: RecordedWeatherDao = intent.getParcelableExtra<RecordedWeatherDao>("RecordedWeatherData") as RecordedWeatherDao
+        recordedWeather = intent.getParcelableExtra("RecordedWeatherData")
+        tv_country_name.text = recordedWeather.country
+        tv_date.text =
+            "${getDateFormat(recordedWeather.dt.toLong())} ${recordedWeather.currentTime}"
+        iv_weather.loadByGlide("${Constants.imageURL}${recordedWeather.icon}.png")
+        tv_weather_value.text = String.format(getTemperatureInCelsius(recordedWeather.temp), "C")
+        tv_weather_description.text = recordedWeather.description
+        tv_sunrise_value.text = getTimeFormat(recordedWeather.sunrise.toLong())
+        tv_sunset_value.text = getTimeFormat(recordedWeather.sunrise.toLong())
+        tv_temp_max_value.text =
+            String.format(getTemperatureInCelsius(recordedWeather.temp_max), "C")
+        tv_temp_min_value.text =
+            String.format(getTemperatureInCelsius(recordedWeather.temp_min), "C")
+        tv_wind_value.text = String.format(recordedWeather.speed.toString(), "M/S")
+
     }
 }

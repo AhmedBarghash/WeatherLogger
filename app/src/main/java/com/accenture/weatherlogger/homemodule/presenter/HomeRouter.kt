@@ -2,6 +2,7 @@ package com.accenture.weatherlogger.homemodule.presenter
 
 import android.content.Intent
 import android.content.Context
+import com.accenture.weatherlogger.R
 import com.accenture.weatherlogger.currentweatherdetailsmodule.CurrentWeatherDetailsActivity
 import com.accenture.weatherlogger.homemodule.datalayer.database.dto.RecordedWeatherDto
 

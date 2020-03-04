@@ -64,6 +64,7 @@ class HomePresenter(private var view: HomeContract.View?) : HomeContract.Present
         item: RecordedWeatherDto,
         applicationContext: Context
     ) {
+        router = HomeRouter()
         router.navigateToCurrentWeatherDetailsScreen(item,applicationContext)
     }
 

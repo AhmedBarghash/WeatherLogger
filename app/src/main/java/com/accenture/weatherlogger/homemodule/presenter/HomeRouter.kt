@@ -12,7 +12,7 @@ class HomeRouter {
         applicationContext: Context
     ) {
         val intent = Intent(applicationContext, CurrentWeatherDetailsActivity::class.java)
-        intent.putExtra("studentData", item)
+        intent.putExtra("RecordedWeatherData", item)
         applicationContext.startActivity(intent)
     }
 }

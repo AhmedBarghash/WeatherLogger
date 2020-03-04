@@ -36,20 +36,13 @@ class GPSTracker {
     }
 
 
-    fun createRequestPermissions() {
+    fun createRequestPermissions(mContext: Activity) {
+
         ActivityCompat.requestPermissions(
-            mContext as Activity,
+            mContext,
             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
             REQUEST_FINE_LOCATION
         )
-    }
-
-    fun createLocationRequest(): LocationRequest {
-        var locationRequest = LocationRequest()
-        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        locationRequest.interval = UPDATE_INTERVAL
-        locationRequest.fastestInterval = FASTEST_INTERVAL
-        return locationRequest
     }
 
     fun showGPSDisabledAlertToUser() {

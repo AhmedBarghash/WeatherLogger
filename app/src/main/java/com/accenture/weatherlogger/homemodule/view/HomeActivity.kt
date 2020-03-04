@@ -51,14 +51,10 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     private fun getUserUpdatedLocation() {
-        if (ContextCompat.checkSelfPermission(
-                applicationContext,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
+        if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             createLocationListenerRequest()
         } else {
-            gpsTracker.createRequestPermissions()
+            gpsTracker.createRequestPermissions(this@HomeActivity)
         }
     }
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.database.Cursor
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteDatabase.CONFLICT_REPLACE
 import android.database.sqlite.SQLiteOpenHelper
 import com.accenture.weatherlogger.homemodule.datalayer.database.dao.RecordedWeatherDao
 import com.accenture.weatherlogger.homemodule.datalayer.database.dto.RecordedWeatherDto
@@ -44,7 +45,9 @@ open class AppDatabase(context: Context?) :
         values.put(RecordedWeatherDao.TEMP_MAX, weatherData.temp_max)
         values.put(RecordedWeatherDao.TIMEZONE, weatherData.timezone)
         values.put(RecordedWeatherDao.CURRENT_TIME, weatherData.currentTime)
-        val id = db.insert(RecordedWeatherDao.TABLE_NAME, null, values)
+
+        // this to replace the new data with the same current date(API date format).
+        val id = db.insertWithOnConflict(RecordedWeatherDao.TABLE_NAME, null, values,CONFLICT_REPLACE)
         db.close()
         // NOTE if the value -1 that mean something went wrong of try to insert data with the same id
         return id

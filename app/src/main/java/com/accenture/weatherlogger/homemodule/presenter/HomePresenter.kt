@@ -3,6 +3,7 @@ package com.accenture.weatherlogger.homemodule.presenter
 import android.util.Log
 import retrofit2.HttpException
 import android.content.Context
+import com.accenture.weatherlogger.R
 import kotlin.collections.ArrayList
 import com.accenture.weatherlogger.homemodule.HomeContract
 import com.accenture.weatherlogger.homemodule.datalayer.database.dto.RecordedWeatherDto
@@ -38,9 +39,9 @@ class HomePresenter(private var view: HomeContract.View?) : HomeContract.Present
         view?.updateViewWithNewSavedData()
     }
 
-    override fun onFailedReceivedCurrentWeatherData(throwable: Throwable) {
+    override fun onFailedReceivedCurrentWeatherData(it: Throwable) {
         view?.hideLoader()
-        view?.showError((throwable as HttpException).code())
+        view?.showError((it as HttpException).code())
     }
 
     override fun getOfflineWeatherData(applicationContext: Context) {
@@ -51,13 +52,10 @@ class HomePresenter(private var view: HomeContract.View?) : HomeContract.Present
     override fun deliverOfflineWeatherData(offLineWeatherDataList: ArrayList<RecordedWeatherDto>) {
         view?.hideLoader()
         if (offLineWeatherDataList.isEmpty()) {
-            view?.showAddingWeatherDataView()
+            view?.showAddingWeatherDataView(true)
             return
         }
         view?.presentOffLineWeatherData(offLineWeatherDataList)
-        for (item in offLineWeatherDataList) {
-            Log.i("Hello", item.toString())
-        }
     }
 
     override fun readyToShowDetailsScreen(

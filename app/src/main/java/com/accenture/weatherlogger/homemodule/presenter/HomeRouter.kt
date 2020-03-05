@@ -14,6 +14,7 @@ class HomeRouter {
     ) {
         val intent = Intent(applicationContext, CurrentWeatherDetailsActivity::class.java)
         intent.putExtra("RecordedWeatherData", item)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         applicationContext.startActivity(intent)
     }
 }

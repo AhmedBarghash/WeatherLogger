@@ -24,7 +24,7 @@ class HomeInteractor() : HomeContract.Interactor {
             retrofit = APIClient.getClient()?.create(CurrentWeatherAPIService::class.java)
         }
         val requestTime = getCurrentTime()
-        retrofit!!.getCurrentWeather(latitude, longitude, Constants.appIdKey)
+        retrofit!!.getCurrentWeather(latitude, longitude ,Constants.appIdKey)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.newThread())
             .subscribe({

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,19 +40,23 @@ class HomeActivity : BaseActivity(), HomeContract.View {
             if (gpsTracker.checkGPSStatus()) {
                 getUserUpdatedLocation()
             } else
-                gpsTracker.showGPSDisabledAlertToUser()
+                gpsTracker.showGPSDisabledAlertToUser(this@HomeActivity)
         }
 
         add_new_record.setOnClickListener {
             if (gpsTracker.checkGPSStatus()) {
                 getUserUpdatedLocation()
             } else
-                gpsTracker.showGPSDisabledAlertToUser()
+                gpsTracker.showGPSDisabledAlertToUser(this@HomeActivity)
         }
     }
 
     private fun getUserUpdatedLocation() {
-        if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             createLocationListenerRequest()
         } else {
             gpsTracker.createRequestPermissions(this@HomeActivity)
@@ -69,7 +74,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     private fun updateViewWithServerData() {
-        // TODO get the latitude and longitude from the mobile.
         if (!isNetworkAvailable(applicationContext)) {
             showMessage(applicationContext.resources.getString(R.string.no_internetConnection))
             return
@@ -81,11 +85,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
                 context = applicationContext
             )
         }
-//        presenter?.getCurrentDayWeather(
-//            latitude = 31.040282,
-//            longitude = 30.458077,
-//            context = applicationContext
-//        )
     }
 
     override fun updateViewWithNewSavedData() {
@@ -96,17 +95,20 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         presenter?.addNewRecordedWeatherData(applicationContext, item)
     }
 
-    override fun showAddingWeatherDataView() {
-        showMessage(applicationContext.resources.getString(R.string.no_data_to_show))
-        cl_no_recordView.visibility = View.VISIBLE
-        rv_recorded_weather_list.visibility = View.GONE
-        add_new_record.visibility = View.GONE
+    override fun showAddingWeatherDataView(addingFlag: Boolean) {
+        if (addingFlag) {
+            cl_no_recordView.visibility = View.VISIBLE
+            rv_recorded_weather_list.visibility = View.GONE
+            add_new_record.visibility = View.GONE
+        } else {
+            cl_no_recordView.visibility = View.GONE
+            rv_recorded_weather_list.visibility = View.VISIBLE
+            add_new_record.visibility = View.VISIBLE
+        }
     }
 
     override fun presentOffLineWeatherData(offLineWeatherDataList: ArrayList<RecordedWeatherDto>) {
-        cl_no_recordView.visibility = View.GONE
-        rv_recorded_weather_list.visibility = View.VISIBLE
-        add_new_record.visibility = View.VISIBLE
+        showAddingWeatherDataView(false)
         recordedWeatherList.clear()
         recordedWeatherList.addAll(offLineWeatherDataList)
         adapter.notifyDataSetChanged()
@@ -146,7 +148,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<out String>,
+        permissions: Array<String>,
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)

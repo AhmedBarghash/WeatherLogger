@@ -10,8 +10,6 @@ import android.location.*
 import android.os.Bundle
 import android.os.Handler
 import androidx.core.app.ActivityCompat
-import com.google.android.gms.location.LocationRequest
-import java.util.*
 
 
 class GPSTracker {
@@ -45,14 +43,14 @@ class GPSTracker {
         )
     }
 
-    fun showGPSDisabledAlertToUser() {
-        val alertDialogBuilder = AlertDialog.Builder(mContext)
+    fun showGPSDisabledAlertToUser(activity: Activity) {
+        val alertDialogBuilder = AlertDialog.Builder(activity)
         alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
             .setCancelable(false)
             .setPositiveButton("Enable GPS") { _, _ ->
                 val callGPSSettingIntent =
                     Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                mContext.startActivity(callGPSSettingIntent)
+                activity.startActivity(callGPSSettingIntent)
             }
         alertDialogBuilder.setNegativeButton("Cancel") { dialog, id -> dialog.cancel() }
         val alert = alertDialogBuilder.create()

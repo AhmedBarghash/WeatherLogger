@@ -9,7 +9,7 @@ interface HomeContract {
         fun showLoader()
         fun hideLoader()
         fun showError(code: Int)
-        fun showAddingWeatherDataView()
+        fun showAddingWeatherDataView(addingFlag: Boolean)
         fun showMessage(message: String)
         fun updateViewWithNewSavedData()
         fun onRecordedWeatherSelected(item: RecordedWeatherDto)

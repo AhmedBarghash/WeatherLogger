@@ -14,7 +14,6 @@ class ItemRecordedWeather(override val containerView: View) :
 
     fun onBindView(item: RecordedWeatherDto, callback: HomeContract.View) {
         containerView.tv_country_name.text = item.country
-        //TODO check this later-one String.format(getDateFormat(item.dt.toLong()),getCurrentTime()) not working right
         containerView.tv_date.text = "${getDateFormat(item.dt.toLong())} ${item.currentTime}"
         containerView.tv_sunrise_value.text = getTimeFormat(item.sunrise.toLong())
         containerView.tv_sunset_value.text = getTimeFormat(item.sunset.toLong())

@@ -14,4 +14,5 @@
     <string name="end_point_not_found">The end point your app try to call does not exists</string>
     <string name="somethin_is_wrong">Something went wrong sorry :(</string>
     <string name="your_token_is_expired">your token is expired or wrong</string>
+    <string name="timeout_message">Socket Time out. Please try again.</string>
 </resources>

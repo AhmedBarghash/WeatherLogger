@@ -36,7 +36,7 @@ interface HomeContract {
             context: Context,
             request: String
         )
-
+        fun onRequestTimeout()
         fun onSaveDataLocallySucceed(saveStatus: Boolean)
     }
 

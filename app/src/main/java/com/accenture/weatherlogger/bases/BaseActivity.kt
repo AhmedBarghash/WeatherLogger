@@ -10,6 +10,7 @@ open class BaseActivity : AppCompatActivity() {
         when (code){
             400 -> {showMessage(applicationContext.resources.getString(R.string.your_token_is_expired))}
             401 -> {showMessage(applicationContext.resources.getString(R.string.end_point_not_found))}
+            101 -> {showMessage(applicationContext.resources.getString(R.string.timeout_message))}
             else -> {
                 showMessage(applicationContext.resources.getString(R.string.somethin_is_wrong))
             }

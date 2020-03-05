@@ -58,6 +58,12 @@ class HomePresenter(private var view: HomeContract.View?) : HomeContract.Present
         view?.presentOffLineWeatherData(offLineWeatherDataList)
     }
 
+    override fun onRequestTimeout() {
+        view?.hideLoader()
+        view?.showError(101)
+
+    }
+
     override fun readyToShowDetailsScreen(
         item: RecordedWeatherDto,
         applicationContext: Context

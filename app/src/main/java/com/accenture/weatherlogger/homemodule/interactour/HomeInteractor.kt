@@ -11,6 +11,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import com.accenture.weatherlogger.homemodule.HomeContract
 import com.accenture.weatherlogger.homemodule.datalayer.database.dto.RecordedWeatherDto
 import com.accenture.weatherlogger.homemodule.datalayer.apimanager.CurrentWeatherAPIService
+import java.net.SocketTimeoutException
 
 class HomeInteractor() : HomeContract.Interactor {
 
@@ -30,7 +31,12 @@ class HomeInteractor() : HomeContract.Interactor {
             .subscribe({
                 callBack.onCurrentWeatherDataReceivedSuccessful(it, context,requestTime)
             }, {
-                callBack.onFailedReceivedCurrentWeatherData(it)
+                try {
+                    callBack.onFailedReceivedCurrentWeatherData(it)
+                } catch (e: SocketTimeoutException){
+                    Log.e("Error ${javaClass.name}",e.message)
+                    callBack.onRequestTimeout()
+                }
             })
 
     }

@@ -8,11 +8,13 @@ open class BaseActivity : AppCompatActivity() {
 
     protected fun showErrorMessage(code: Int){
         when (code){
-            400 -> {showMessage(applicationContext.resources.getString(R.string.your_token_is_expired))}
-            401 -> {showMessage(applicationContext.resources.getString(R.string.end_point_not_found))}
+            400 -> {showMessage(applicationContext.resources.getString(R.string.end_point_not_found))}
+            401 -> {showMessage(applicationContext.resources.getString(R.string.your_token_is_expired))}
+            404 -> {showMessage(applicationContext.resources.getString(R.string.end_point_not_found))}
+            505 -> {showMessage(applicationContext.resources.getString(R.string.server_error_message))}
             101 -> {showMessage(applicationContext.resources.getString(R.string.timeout_message))}
             else -> {
-                showMessage(applicationContext.resources.getString(R.string.somethin_is_wrong))
+                showMessage(applicationContext.resources.getString(R.string.something_is_wrong))
             }
         }
     }

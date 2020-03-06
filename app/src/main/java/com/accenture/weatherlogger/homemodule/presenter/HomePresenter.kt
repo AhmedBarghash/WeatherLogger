@@ -1,14 +1,13 @@
 package com.accenture.weatherlogger.homemodule.presenter
 
-import android.util.Log
 import retrofit2.HttpException
 import android.content.Context
-import com.accenture.weatherlogger.R
 import kotlin.collections.ArrayList
 import com.accenture.weatherlogger.homemodule.HomeContract
 import com.accenture.weatherlogger.homemodule.datalayer.database.dto.RecordedWeatherDto
 import com.accenture.weatherlogger.homemodule.interactour.HomeInteractor
 import com.accenture.weatherlogger.homemodule.datalayer.apimanager.model.CurrentGeographicCoordinatesWeatherResponse
+import java.net.UnknownHostException
 
 class HomePresenter(private var view: HomeContract.View?) : HomeContract.Presenter,
     HomeContract.InteractorOutput {
@@ -41,7 +40,13 @@ class HomePresenter(private var view: HomeContract.View?) : HomeContract.Present
 
     override fun onFailedReceivedCurrentWeatherData(it: Throwable) {
         view?.hideLoader()
-        view?.showError((it as HttpException).code())
+        try {
+        } catch (exception: HttpException) {
+            val code = exception.code()
+            view?.showError(code)
+        } catch (exception: UnknownHostException) {
+            view?.showError(404)
+        }
     }
 
     override fun getOfflineWeatherData(applicationContext: Context) {
@@ -69,7 +74,7 @@ class HomePresenter(private var view: HomeContract.View?) : HomeContract.Present
         applicationContext: Context
     ) {
         router = HomeRouter()
-        router.navigateToCurrentWeatherDetailsScreen(item,applicationContext)
+        router.navigateToCurrentWeatherDetailsScreen(item, applicationContext)
     }
 
     override fun onDestroy() {

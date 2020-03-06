@@ -2,17 +2,15 @@ package com.accenture.weatherlogger
 
 import java.util.*
 import android.content.Context
-import com.bumptech.glide.Glide
 import android.widget.ImageView
 import java.text.SimpleDateFormat
 import me.kartikarora.potato.Potato
 import com.accenture.weatherlogger.homemodule.datalayer.database.AppDatabase
+import com.squareup.picasso.Picasso
 
-fun ImageView.loadByGlide(url: String) {
-    Glide.with(this.context)
-        .load(url)
-        .asBitmap()
-        .into(this)
+fun ImageView.loadByPicasso(url: String){
+    Picasso.get()
+        .load(url).into(this);
 }
 
 fun isNetworkAvailable(context: Context): Boolean {
@@ -32,6 +30,9 @@ fun getTimeFormat(timeInLong: Long): String {
 }
 
 fun getCurrentTime() = SimpleDateFormat("hh:mm aa", Locale.getDefault()).format(Date())!!
+
+fun getDateTime() = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date()).toInt()
+
 // Kelvin to Celsius
 fun getTemperatureInCelsius(temperature: Double) = (temperature - 273.15).toInt().toString()
 

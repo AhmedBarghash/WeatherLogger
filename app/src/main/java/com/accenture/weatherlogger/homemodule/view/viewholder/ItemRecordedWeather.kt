@@ -17,8 +17,8 @@ class ItemRecordedWeather(override val containerView: View) :
         containerView.tv_date.text = "${getDateFormat(item.dt.toLong())} ${item.currentTime}"
         containerView.tv_sunrise_value.text = getTimeFormat(item.sunrise.toLong())
         containerView.tv_sunset_value.text = getTimeFormat(item.sunset.toLong())
-        containerView.tv_weather_value.text = String.format(getTemperatureInCelsius(item.temp), "C")
-        containerView.iv_weather.loadByGlide("${Constants.imageURL}${item.icon}.png")
+        containerView.tv_weather_value.text = "${getTemperatureInCelsius(item.temp)}${"\u00B0"}C"
+        containerView.iv_weather.loadByPicasso("${Constants.imageURL}${item.icon}.png")
         containerView.setOnClickListener {
             callback.onRecordedWeatherSelected(item)
         }

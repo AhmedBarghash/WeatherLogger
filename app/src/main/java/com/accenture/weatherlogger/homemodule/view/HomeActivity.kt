@@ -109,6 +109,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     override fun presentOffLineWeatherData(offLineWeatherDataList: ArrayList<RecordedWeatherDto>) {
         showAddingWeatherDataView(false)
+        showMessage(applicationContext.resources.getString(R.string.duplicate_data_message))
         recordedWeatherList.clear()
         recordedWeatherList.addAll(offLineWeatherDataList)
         adapter.notifyDataSetChanged()

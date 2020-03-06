@@ -14,18 +14,15 @@ class CurrentWeatherDetailsActivity : BaseActivity() {
         setContentView(R.layout.activity_current_weather_details)
         recordedWeather = intent.getParcelableExtra("RecordedWeatherData")
         tv_country_name.text = recordedWeather.country
-        tv_date.text =
-            "${getDateFormat(recordedWeather.dt.toLong())} ${recordedWeather.currentTime}"
-        iv_weather.loadByGlide("${Constants.imageURL}${recordedWeather.icon}.png")
-        tv_weather_value.text = String.format(getTemperatureInCelsius(recordedWeather.temp), "C")
+        tv_date.text = "${getDateFormat(recordedWeather.dt.toLong())} ${recordedWeather.currentTime}"
+        iv_weather.loadByPicasso("${Constants.imageURL}${recordedWeather.icon}.png")
+        tv_weather_value.text = "${getTemperatureInCelsius(recordedWeather.temp)}${"\u00B0"}C"
         tv_weather_description.text = recordedWeather.description
         tv_sunrise_value.text = getTimeFormat(recordedWeather.sunrise.toLong())
-        tv_sunset_value.text = getTimeFormat(recordedWeather.sunrise.toLong())
-        tv_temp_max_value.text =
-            String.format(getTemperatureInCelsius(recordedWeather.temp_max), "C")
-        tv_temp_min_value.text =
-            String.format(getTemperatureInCelsius(recordedWeather.temp_min), "C")
-        tv_wind_value.text = String.format(recordedWeather.speed.toString(), "M/S")
+        tv_sunset_value.text = getTimeFormat(recordedWeather.sunset.toLong())
+        tv_temp_max_value.text ="${getTemperatureInCelsius(recordedWeather.temp_max)}${"\u00B0"}C"
+        tv_temp_min_value.text ="${getTemperatureInCelsius(recordedWeather.temp_min)}${"\u00B0"}C"
+        tv_wind_value.text = "${recordedWeather.speed}M/S"
 
     }
 }

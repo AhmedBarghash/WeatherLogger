@@ -12,7 +12,7 @@ class CurrentWeatherDetailsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_current_weather_details)
-        recordedWeather = intent.getParcelableExtra("RecordedWeatherData")
+        recordedWeather = intent.getParcelableExtra("RecordedWeatherData")!!
         tv_country_name.text = recordedWeather.country
         tv_date.text = "${getDateFormat(recordedWeather.dt.toLong())} ${recordedWeather.currentTime}"
         iv_weather.loadByPicasso("${Constants.imageURL}${recordedWeather.icon}.png")

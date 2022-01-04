@@ -41,6 +41,7 @@ class HomePresenter(private var view: HomeContract.View?) : HomeContract.Present
     override fun onFailedReceivedCurrentWeatherData(it: Throwable) {
         view?.hideLoader()
         try {
+            it.message?.let { message -> if(message.contains("401"))  view?.showError(401)else  view?.showError(404)}
         } catch (exception: HttpException) {
             val code = exception.code()
             view?.showError(code)

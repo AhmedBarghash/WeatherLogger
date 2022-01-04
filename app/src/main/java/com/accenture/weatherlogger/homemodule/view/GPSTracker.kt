@@ -64,7 +64,8 @@ class GPSTracker {
         val isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
         val locationListener = object : LocationListener {
             var removed = false
-            override fun onLocationChanged(p0: Location?) {
+
+            override fun onLocationChanged(p0: Location) {
                 removed = true
                 locationManager.removeUpdates(this)
                 onLocationCallback(p0)
@@ -72,21 +73,21 @@ class GPSTracker {
 
             override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
             }
-
-            override fun onProviderEnabled(p0: String?) {
-            }
-
-            override fun onProviderDisabled(p0: String?) {
-            }
         }
         if (isGPSEnabled != false || isNetworkEnabled != false) {
-            val provider = if (isNetworkEnabled) LocationManager.NETWORK_PROVIDER else LocationManager.GPS_PROVIDER
+            val provider =
+                if (isNetworkEnabled) LocationManager.NETWORK_PROVIDER else LocationManager.GPS_PROVIDER
             val location = locationManager.getLastKnownLocation(provider)
             if (location != null) {
                 onLocationCallback(location)
                 return
             }
-            locationManager.requestLocationUpdates(provider, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, locationListener)
+            locationManager.requestLocationUpdates(
+                provider,
+                MIN_TIME_BW_UPDATES,
+                MIN_DISTANCE_CHANGE_FOR_UPDATES,
+                locationListener
+            )
             Handler().postDelayed({
                 if (!locationListener.removed) {
                     locationManager.removeUpdates(locationListener)

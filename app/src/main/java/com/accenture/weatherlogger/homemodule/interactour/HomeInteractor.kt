@@ -34,7 +34,7 @@ class HomeInteractor() : HomeContract.Interactor {
                 try {
                     callBack.onFailedReceivedCurrentWeatherData(it)
                 } catch (e: SocketTimeoutException){
-                    Log.e("Error ${javaClass.name}",e.message)
+                    e.message?.let { it1 -> Log.e("Error ${javaClass.name}", it1) }
                     callBack.onRequestTimeout()
                 }
             })

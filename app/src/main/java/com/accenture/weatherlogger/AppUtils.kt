@@ -9,8 +9,7 @@ import com.accenture.weatherlogger.homemodule.datalayer.database.AppDatabase
 import com.squareup.picasso.Picasso
 
 fun ImageView.loadByPicasso(url: String){
-    Picasso.get()
-        .load(url).into(this);
+    Picasso.with(this.context).load(url).into(this);
 }
 
 fun isNetworkAvailable(context: Context): Boolean {
